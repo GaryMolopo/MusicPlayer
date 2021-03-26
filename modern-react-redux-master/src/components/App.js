@@ -5,27 +5,34 @@ import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 
 class App extends React.Component {
+    
+    //Initialize objects
     state = {
         videos: [],
         selectedVideo: null
     }
+    //async/await promise
     handleSubmit = async (termFromSearchBar) => {
         const response = await youtube.get('/search', {
             params: {
                 q: termFromSearchBar
             }
         })
+
         this.setState({
             videos: response.data.items
         })
     };
+    //video selection
     handleVideoSelect = (video) => {
         this.setState({selectedVideo: video})
     }
 
     render() {
+        //set handleSubmit to prop
         return (
             <div className='ui container' style={{marginTop: '1em'}}>
+                
                 <SearchBar handleFormSubmit={this.handleSubmit}/>
                 <div className='ui grid'>
                     <div className="ui row">
